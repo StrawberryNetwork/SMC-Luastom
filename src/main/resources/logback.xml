@@ -1,0 +1,14 @@
+<configuration>
+    <conversionRule conversionWord="betterHighlight" converterClass="org.example.LoggerColors"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%betterHighlight([%d{HH:mm:ss}] [%logger]) %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="net.minestom.server" level="ERROR" />
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
