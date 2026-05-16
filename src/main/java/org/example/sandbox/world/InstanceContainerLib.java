@@ -7,7 +7,9 @@ import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 
+import net.minestom.server.instance.DynamicChunk;
 import net.minestom.server.instance.InstanceContainer;
+import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.anvil.AnvilLoader;
 
 public class InstanceContainerLib extends LuaTable {
@@ -31,7 +33,20 @@ public class InstanceContainerLib extends LuaTable {
                 container.setGenerator(unit -> {
                     LuaErrorAssert.checkFunction(callback, "SetGenerator", 1).call(new GenerationUnitLib(unit));
                 });
-                return LuaValue.NIL;
+                return InstanceContainerLib.this;
+            }
+        });
+
+        rawset("ToggleLighting", new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue toggle) {
+                if (LuaErrorAssert.checkBoolean(toggle, "ToggleLighting", 1)) {
+                    container.setChunkSupplier(LightingChunk::new);
+                } else {
+                    container.setChunkSupplier(DynamicChunk::new);
+                }
+
+                return InstanceContainerLib.this;
             }
         });
     }
