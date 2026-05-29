@@ -1,6 +1,5 @@
-package org.example.sandbox.world.events;
+package org.example.sandbox.events;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.example.sandbox.entities.PlayerLib;

@@ -1,4 +1,4 @@
-package org.example.sandbox.world.events;
+package org.example.sandbox.events;
 
 import org.luaj.vm2.LuaTable;
 

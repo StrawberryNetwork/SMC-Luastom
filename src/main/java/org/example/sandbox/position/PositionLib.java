@@ -1,13 +1,12 @@
 package org.example.sandbox.position;
 
 import org.example.LuaErrorAssert;
-import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ThreeArgFunction;
 
 import net.minestom.server.coordinate.Pos;
 
-public class PositionLib extends LuaTable {
+public class PositionLib extends PointLib {
     public static ThreeArgFunction positionFactory() {
         return new ThreeArgFunction() {
             @Override
@@ -26,10 +25,12 @@ public class PositionLib extends LuaTable {
     private final Pos position;
 
     public PositionLib(Pos position) {
+        super(position);
         this.position = position;
     }
 
-    public Pos getPosition() {
+    @Override
+    public Pos getPoint() {
         return this.position;
     }
 }

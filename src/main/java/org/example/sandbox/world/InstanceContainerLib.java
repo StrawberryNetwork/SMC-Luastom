@@ -6,6 +6,7 @@ import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.TwoArgFunction;
 
 import net.minestom.server.instance.DynamicChunk;
 import net.minestom.server.instance.InstanceContainer;
