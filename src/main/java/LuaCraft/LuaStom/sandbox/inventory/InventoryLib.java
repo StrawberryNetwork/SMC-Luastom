@@ -1,4 +1,4 @@
-package org.example.sandbox.inventory;
+package LuaCraft.LuaStom.sandbox.inventory;
 
 import net.minestom.server.inventory.Inventory;
 

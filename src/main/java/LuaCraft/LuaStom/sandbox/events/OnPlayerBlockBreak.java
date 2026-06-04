@@ -1,11 +1,8 @@
-package org.example.sandbox.events;
+package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.example.sandbox.entities.PlayerLib;
-import org.example.sandbox.position.BlockVecLib;
-import org.example.sandbox.world.BlockLib;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -13,6 +10,9 @@ import org.luaj.vm2.LuaValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import LuaCraft.LuaStom.sandbox.entities.PlayerLib;
+import LuaCraft.LuaStom.sandbox.position.BlockVecLib;
+import LuaCraft.LuaStom.sandbox.world.BlockLib;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
 
 public class OnPlayerBlockBreak {

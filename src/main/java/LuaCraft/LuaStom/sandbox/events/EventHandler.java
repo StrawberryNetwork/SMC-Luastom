@@ -1,4 +1,4 @@
-package org.example.sandbox.events;
+package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.concurrent.ConcurrentHashMap;
 

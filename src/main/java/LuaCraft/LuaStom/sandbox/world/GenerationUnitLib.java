@@ -1,10 +1,10 @@
-package org.example.sandbox.world;
+package LuaCraft.LuaStom.sandbox.world;
 
-import org.example.sandbox.position.PointLib;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 
+import LuaCraft.LuaStom.sandbox.position.PointLib;
 import net.minestom.server.instance.generator.GenerationUnit;
 
 public class GenerationUnitLib extends LuaTable {

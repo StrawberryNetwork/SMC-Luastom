@@ -1,11 +1,8 @@
-package org.example.sandbox.events;
+package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.example.sandbox.component.ComponentLib;
-import org.example.sandbox.component.ComponentUtil;
-import org.example.sandbox.entities.PlayerLib;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -14,6 +11,9 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import LuaCraft.LuaStom.sandbox.component.ComponentLib;
+import LuaCraft.LuaStom.sandbox.component.ComponentUtil;
+import LuaCraft.LuaStom.sandbox.entities.PlayerLib;
 import net.minestom.server.event.player.PlayerChatEvent;
 
 public class OnPlayerChat {

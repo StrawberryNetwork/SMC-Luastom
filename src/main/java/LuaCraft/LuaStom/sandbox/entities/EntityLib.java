@@ -1,12 +1,12 @@
-package org.example.sandbox.entities;
+package LuaCraft.LuaStom.sandbox.entities;
 
-import org.example.sandbox.position.PointLib;
-import org.example.sandbox.world.InstanceContainerLib;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.ThreeArgFunction;
 
+import LuaCraft.LuaStom.sandbox.position.PointLib;
+import LuaCraft.LuaStom.sandbox.world.InstanceContainerLib;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.instance.InstanceContainer;
 

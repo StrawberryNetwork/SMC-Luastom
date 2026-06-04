@@ -1,4 +1,4 @@
-package org.example.sandbox.inventory;
+package LuaCraft.LuaStom.sandbox.inventory;
 
 import java.io.IOException;
 import java.nio.file.Files;

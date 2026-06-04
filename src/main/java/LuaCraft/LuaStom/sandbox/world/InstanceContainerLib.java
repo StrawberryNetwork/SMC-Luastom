@@ -1,13 +1,13 @@
-package org.example.sandbox.world;
+package LuaCraft.LuaStom.sandbox.world;
 
 import java.io.File;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import net.minestom.server.instance.DynamicChunk;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.LightingChunk;

@@ -1,4 +1,4 @@
-package org.example;
+package LuaCraft.LuaStom;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,10 +1,10 @@
-package org.example.sandbox.component;
+package LuaCraft.LuaStom.sandbox.component;
 
-import org.example.sandbox.LuaColor;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 import org.luaj.vm2.lib.VarArgFunction;
 
+import LuaCraft.LuaStom.sandbox.LuaColor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;

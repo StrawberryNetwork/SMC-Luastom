@@ -1,12 +1,13 @@
-package org.example.sandbox;
+package LuaCraft.LuaStom.sandbox;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 import org.luaj.vm2.lib.VarArgFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import LuaCraft.LuaStom.LuaErrorAssert;
 
 public class LuaLogger extends LuaTable {
     private static final Logger logger = LoggerFactory.getLogger("LuaCraft ScriptLog");

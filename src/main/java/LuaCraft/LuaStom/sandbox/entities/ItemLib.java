@@ -1,11 +1,11 @@
-package org.example.sandbox.entities;
+package LuaCraft.LuaStom.sandbox.entities;
 
-import org.example.sandbox.inventory.ItemStackLib;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import LuaCraft.LuaStom.sandbox.inventory.ItemStackLib;
 import net.minestom.server.entity.ItemEntity;
 import net.minestom.server.item.ItemStack;
 

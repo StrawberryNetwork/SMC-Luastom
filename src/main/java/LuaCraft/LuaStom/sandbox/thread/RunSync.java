@@ -1,9 +1,9 @@
-package org.example.sandbox.thread;
+package LuaCraft.LuaStom.sandbox.thread;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.timer.Scheduler;
 

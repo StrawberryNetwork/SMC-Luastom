@@ -1,4 +1,4 @@
-package org.example;
+package LuaCraft.LuaStom;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,24 +9,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.example.sandbox.Enumerations;
-import org.example.sandbox.LuaLogger;
-import org.example.sandbox.component.LuaComponent;
-import org.example.sandbox.entities.ItemLib;
-import org.example.sandbox.events.ServerEvent;
-import org.example.sandbox.inventory.ItemStackLib;
-import org.example.sandbox.position.PointLib;
-import org.example.sandbox.position.PositionLib;
-import org.example.sandbox.thread.NextTick;
-import org.example.sandbox.thread.RunSync;
-import org.example.sandbox.world.FastSimplexBuilderLib;
-import org.example.sandbox.world.World;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.JsePlatform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import LuaCraft.LuaStom.sandbox.Enumerations;
+import LuaCraft.LuaStom.sandbox.LuaLogger;
+import LuaCraft.LuaStom.sandbox.component.LuaComponent;
+import LuaCraft.LuaStom.sandbox.entities.ItemLib;
+import LuaCraft.LuaStom.sandbox.events.ServerEvent;
+import LuaCraft.LuaStom.sandbox.inventory.ItemStackLib;
+import LuaCraft.LuaStom.sandbox.position.PointLib;
+import LuaCraft.LuaStom.sandbox.position.PositionLib;
+import LuaCraft.LuaStom.sandbox.thread.NextTick;
+import LuaCraft.LuaStom.sandbox.thread.RunSync;
+import LuaCraft.LuaStom.sandbox.world.FastSimplexBuilderLib;
+import LuaCraft.LuaStom.sandbox.world.World;
 
 public class ScriptHandler {
     private static final Logger logger = LoggerFactory.getLogger("LuaCraft ScriptHandler");
@@ -111,7 +112,7 @@ public class ScriptHandler {
 
         if (firstLoad) {
             logger.info("Collecting all lua script files...");
-            org.example.sandbox.events.EventHandler eventHandler = new org.example.sandbox.events.EventHandler();
+            LuaCraft.LuaStom.sandbox.events.EventHandler eventHandler = new LuaCraft.LuaStom.sandbox.events.EventHandler();
             eventHandler.initNodes();
             eventHandler.initListeners(allGlobals);
         }

@@ -1,4 +1,4 @@
-package org.example.sandbox;
+package LuaCraft.LuaStom.sandbox;
 
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;

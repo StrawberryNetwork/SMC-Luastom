@@ -1,4 +1,4 @@
-package org.example.sandbox.world;
+package LuaCraft.LuaStom.sandbox.world;
 
 import org.jspecify.annotations.NonNull;
 import org.luaj.vm2.LuaTable;

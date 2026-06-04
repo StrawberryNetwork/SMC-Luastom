@@ -1,4 +1,4 @@
-package org.example;
+package LuaCraft.LuaStom;
 
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaFunction;

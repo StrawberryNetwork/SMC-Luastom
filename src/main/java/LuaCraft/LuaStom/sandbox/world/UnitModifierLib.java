@@ -1,10 +1,10 @@
-package org.example.sandbox.world;
+package LuaCraft.LuaStom.sandbox.world;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ThreeArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.generator.UnitModifier;
 

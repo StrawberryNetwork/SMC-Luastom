@@ -1,16 +1,16 @@
-package org.example.sandbox.entities;
+package LuaCraft.LuaStom.sandbox.entities;
 
-import org.example.LuaErrorAssert;
-import org.example.sandbox.component.ComponentLib;
-import org.example.sandbox.component.ComponentUtil;
-import org.example.sandbox.inventory.DefaultInventoryHandlerLib;
-import org.example.sandbox.inventory.PlayerInventoryLib;
-import org.example.sandbox.position.PositionLib;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.ThreeArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
+import LuaCraft.LuaStom.sandbox.component.ComponentLib;
+import LuaCraft.LuaStom.sandbox.component.ComponentUtil;
+import LuaCraft.LuaStom.sandbox.inventory.DefaultInventoryHandlerLib;
+import LuaCraft.LuaStom.sandbox.inventory.PlayerInventoryLib;
+import LuaCraft.LuaStom.sandbox.position.PositionLib;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;

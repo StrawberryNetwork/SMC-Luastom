@@ -1,4 +1,4 @@
-package org.example.sandbox.position;
+package LuaCraft.LuaStom.sandbox.position;
 
 import net.minestom.server.coordinate.BlockVec;
 

@@ -1,4 +1,4 @@
-package org.example.sandbox;
+package LuaCraft.LuaStom.sandbox;
 
 import net.kyori.adventure.text.format.TextColor;
 

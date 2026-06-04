@@ -1,6 +1,5 @@
-package org.example.sandbox.position;
+package LuaCraft.LuaStom.sandbox.position;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
@@ -8,6 +7,7 @@ import org.luaj.vm2.Varargs;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.VarArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Vec;
 

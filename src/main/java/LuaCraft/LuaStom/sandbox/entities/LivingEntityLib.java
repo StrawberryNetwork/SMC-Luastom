@@ -1,9 +1,9 @@
-package org.example.sandbox.entities;
+package LuaCraft.LuaStom.sandbox.entities;
 
-import org.example.sandbox.inventory.PlayerInventoryLib;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 
+import LuaCraft.LuaStom.sandbox.inventory.PlayerInventoryLib;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
 

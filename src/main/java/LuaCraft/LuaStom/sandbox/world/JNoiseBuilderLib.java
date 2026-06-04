@@ -1,12 +1,12 @@
-package org.example.sandbox.world;
+package LuaCraft.LuaStom.sandbox.world;
 
-import org.example.LuaErrorAssert;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import de.articdive.jnoise.pipeline.JNoise.JNoiseBuilder;
 
 public class JNoiseBuilderLib extends LuaTable {

@@ -1,4 +1,4 @@
-package org.example.sandbox.events;
+package LuaCraft.LuaStom.sandbox.events;
 
 import org.luaj.vm2.LuaTable;
 

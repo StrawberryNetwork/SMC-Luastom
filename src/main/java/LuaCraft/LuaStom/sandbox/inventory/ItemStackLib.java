@@ -1,10 +1,10 @@
-package org.example.sandbox.inventory;
+package LuaCraft.LuaStom.sandbox.inventory;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ThreeArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import net.kyori.adventure.key.Key;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;

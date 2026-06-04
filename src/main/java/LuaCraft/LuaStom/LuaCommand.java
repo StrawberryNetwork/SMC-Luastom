@@ -1,13 +1,13 @@
-package org.example;
+package LuaCraft.LuaStom;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.example.sandbox.component.ComponentUtil;
 import org.luaj.vm2.Globals;
 
+import LuaCraft.LuaStom.sandbox.component.ComponentUtil;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.arguments.ArgumentType;

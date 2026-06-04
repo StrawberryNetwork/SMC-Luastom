@@ -1,9 +1,9 @@
-package org.example.sandbox.position;
+package LuaCraft.LuaStom.sandbox.position;
 
-import org.example.LuaErrorAssert;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ThreeArgFunction;
 
+import LuaCraft.LuaStom.LuaErrorAssert;
 import net.minestom.server.coordinate.Pos;
 
 public class PositionLib extends PointLib {

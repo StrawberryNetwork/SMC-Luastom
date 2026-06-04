@@ -1,4 +1,4 @@
-package org.example;
+package LuaCraft.LuaStom;
 
 import java.util.concurrent.ConcurrentHashMap;
 
