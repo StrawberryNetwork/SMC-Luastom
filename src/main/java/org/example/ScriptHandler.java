@@ -15,7 +15,11 @@ import org.example.sandbox.component.LuaComponent;
 import org.example.sandbox.entities.ItemLib;
 import org.example.sandbox.events.ServerEvent;
 import org.example.sandbox.inventory.ItemStackLib;
+import org.example.sandbox.position.PointLib;
 import org.example.sandbox.position.PositionLib;
+import org.example.sandbox.thread.NextTick;
+import org.example.sandbox.thread.RunSync;
+import org.example.sandbox.world.FastSimplexBuilderLib;
 import org.example.sandbox.world.World;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
@@ -82,6 +86,12 @@ public class ScriptHandler {
         globals.set("ItemEntity", ItemLib.creator());
         globals.set("Logger", new LuaLogger());
         globals.set("Component", new LuaComponent());
+        globals.set("FastSimplex", FastSimplexBuilderLib.creator());
+        globals.set("Point", PointLib.creator());
+
+        // Add thread related functions
+        globals.set("NextTick", new NextTick());
+        globals.set("Sync", new RunSync());
 
         // Force them to stick within the scripts folder for requiring for safety
         // reasons

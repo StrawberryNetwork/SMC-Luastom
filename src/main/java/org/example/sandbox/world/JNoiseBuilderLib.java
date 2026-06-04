@@ -1,19 +1,18 @@
 package org.example.sandbox.world;
 
+import org.example.LuaErrorAssert;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
-import de.articdive.jnoise.pipeline.JNoise;
 import de.articdive.jnoise.pipeline.JNoise.JNoiseBuilder;
 
-public class JNoiseLib extends LuaTable {
+public class JNoiseBuilderLib extends LuaTable {
     private JNoiseBuilder<?> noiseBuilder;
-    private JNoise noise;
 
-    public JNoiseLib(JNoiseBuilder<?> noiseBuilder) {
+    public JNoiseBuilderLib(JNoiseBuilder<?> noiseBuilder) {
         this.noiseBuilder = noiseBuilder;
 
         rawset("UseFastSimplex", new TwoArgFunction() {
@@ -21,7 +20,7 @@ public class JNoiseLib extends LuaTable {
             public LuaValue call(LuaValue self, LuaValue simplex) {
                 noiseBuilder.fastSimplex(((FastSimplexLib) simplex).getSimplex());
 
-                return JNoiseLib.this;
+                return JNoiseBuilderLib.this;
             }
         });
 
@@ -30,15 +29,27 @@ public class JNoiseLib extends LuaTable {
             public LuaValue call(LuaValue self, LuaValue perlin) {
                 noiseBuilder.perlin(((PerlinLib) perlin).getPerlin());
 
-                return JNoiseLib.this;
+                return JNoiseBuilderLib.this;
             }
         });
-    }
 
-    public @NonNull JNoise getNoise() {
-        if (noise == null) return noiseBuilder.build();
+        rawset("Scale", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue scale) {
+                Double noiseScale = LuaErrorAssert.checkDouble(scale, "JNoise.Scale", 1);
 
-        return noise;
+                noiseBuilder.scale(noiseScale);
+
+                return JNoiseBuilderLib.this;
+            }
+        });
+
+        rawset("Build", new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self) {
+                return new JNoiseGeneratorLib(noiseBuilder.build());
+            }
+        });
     }
 
     public @Nullable JNoiseBuilder<?> getBuilder() {

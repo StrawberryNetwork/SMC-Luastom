@@ -15,7 +15,7 @@ public class UnitModifierLib extends LuaTable {
             public LuaValue call(LuaValue self, LuaValue minMaxHeight, LuaValue block) {
 
                 modifier.fillHeight(LuaErrorAssert.checkInt(minMaxHeight.get(1), "SetFillHeight", 1), LuaErrorAssert.checkInt(minMaxHeight.get(2), "SetFillHeight", 2), Block.fromKey(LuaErrorAssert.checkString(block, "SetFillHeight", 3)));
-                
+
                 return LuaValue.NIL;
             }
         });

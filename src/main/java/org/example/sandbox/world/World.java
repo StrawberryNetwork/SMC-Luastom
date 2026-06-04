@@ -24,7 +24,7 @@ public class World extends LuaTable {
         rawset("CreateJNoise", new OneArgFunction() {
             @Override
             public LuaValue call(LuaValue self) {
-                return new JNoiseLib(JNoise.newBuilder());
+                return new JNoiseBuilderLib(JNoise.newBuilder());
             }
         });
     }
