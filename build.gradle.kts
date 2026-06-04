@@ -4,7 +4,6 @@ plugins {
 }
 
 group = "org.example"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -14,6 +13,7 @@ dependencies {
     implementation("net.minestom:minestom:2026.05.11-1.21.11")
     implementation(files("libs/luaj-jse-3.0.2.jar"))
     implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("de.articdive:jnoise-pipeline:4.1.0")
 }
 
 java {
@@ -34,6 +34,8 @@ tasks {
     }
     shadowJar {
         mergeServiceFiles()
+        archiveBaseName.set("LuaStom")
         archiveClassifier.set("")
+        archiveVersion.set("1.0-SNAPSHOT")
     }
 }

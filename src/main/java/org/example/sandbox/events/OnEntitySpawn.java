@@ -3,48 +3,32 @@ package org.example.sandbox.events;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.example.sandbox.entities.PlayerLib;
-import org.example.sandbox.world.InstanceContainerLib;
+import org.example.sandbox.entities.EntityLib;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.OneArgFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
-import net.minestom.server.instance.InstanceContainer;
+import net.minestom.server.event.entity.EntitySpawnEvent;
 
-public class OnAsyncPlayerConfiguration {
-    private static final Logger logger = LoggerFactory.getLogger("LuaCraft AsyncPlayerConfigurationEvent");
+public class OnEntitySpawn {
+    private static final Logger logger = LoggerFactory.getLogger("LuaCraft EntitySpawnEvent");
 
-    public static void handle(AsyncPlayerConfigurationEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+    public static void handle(EntitySpawnEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+        LuaValue entity = new EntityLib(event.getEntity());
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
-            LuaValue player = new PlayerLib(event.getPlayer());
 
             LuaValue serverEvent = entry.getValue().get("ServerEvent");
-            LuaValue function = serverEvent.get("OnAsyncPlayerConfiguration");
+            LuaValue function = serverEvent.get("OnEntitySpawn");
 
             LuaTable luaEventTable = new LuaTable();
-
-            luaEventTable.set("Player", player);
-            luaEventTable.set("SetSpawningInstance", new OneArgFunction() {
-                @Override
-                public LuaValue call(LuaValue instance) {
-                    if (instance instanceof InstanceContainerLib) {
-                        InstanceContainer container = ((InstanceContainerLib) instance).getContainer();
-
-                        event.setSpawningInstance(container);
-                    }
-
-                    return LuaValue.NIL;
-                }
-            });
+            luaEventTable.set("Entity", entity);
 
             if (!function.isnil() && function.isfunction()) {
                 try {
-                    function.call(luaEventTable, player);
+                    function.call(luaEventTable, entity);
                 } catch (LuaError e) {
                     String baseMsg = e.getMessage();
                     String trueLocation = "";

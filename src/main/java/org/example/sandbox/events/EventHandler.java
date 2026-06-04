@@ -3,16 +3,17 @@ package org.example.sandbox.events;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.luaj.vm2.Globals;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.entity.EntitySpawnEvent;
 import net.minestom.server.event.item.PickupItemEvent;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
+import net.minestom.server.event.player.PlayerChatEvent;
+import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.event.trait.BlockEvent;
 import net.minestom.server.event.trait.EntityEvent;
 import net.minestom.server.event.trait.InventoryEvent;
@@ -20,7 +21,6 @@ import net.minestom.server.event.trait.ItemEvent;
 import net.minestom.server.event.trait.PlayerEvent;
 
 public class EventHandler {
-    private static final Logger logger = LoggerFactory.getLogger("LuaCraft testLog");
 
     private EventNode<PlayerEvent> playerNode = EventNode.type("luacraft_playerNode", EventFilter.PLAYER);
     private EventNode<EntityEvent> entityNode = EventNode.type("luacraft_entityNode", EventFilter.ENTITY);
@@ -46,8 +46,19 @@ public class EventHandler {
         playerNode.addListener(AsyncPlayerConfigurationEvent.class, event -> {
             OnAsyncPlayerConfiguration.handle(event, allGlobals);
         });
+        playerNode.addListener(PlayerChatEvent.class, event -> {
+            OnPlayerChat.handle(event, allGlobals);
+        });
+        playerNode.addListener(PlayerSpawnEvent.class, event -> {
+            OnPlayerSpawn.handle(event, allGlobals);
+        });
+
+        // Entity Listeners
         entityNode.addListener(PickupItemEvent.class, event -> {
             OnPickupItem.handle(event, allGlobals);
+        });
+        entityNode.addListener(EntitySpawnEvent.class, event -> {
+            OnEntitySpawn.handle(event, allGlobals);
         });
     }
 }

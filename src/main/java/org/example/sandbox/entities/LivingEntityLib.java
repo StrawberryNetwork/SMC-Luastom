@@ -15,7 +15,7 @@ public class LivingEntityLib extends EntityLib {
             @Override
             public LuaValue call(LuaValue self) {
                 if (entity instanceof Player player) {
-                    return new PlayerInventoryLib(player.getInventory());
+                    return new PlayerInventoryLib(player.getInventory(), player);
                 }
 
                 // TODO: Possibly this entire one isn't needed if we can just get a player from the entity???

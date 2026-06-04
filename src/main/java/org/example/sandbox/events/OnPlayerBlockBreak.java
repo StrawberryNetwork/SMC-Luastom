@@ -20,7 +20,7 @@ public class OnPlayerBlockBreak {
 
     public static void handle(PlayerBlockBreakEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
         LuaValue player = new PlayerLib(event.getPlayer());
-        LuaValue block = new BlockLib(event.getBlock());
+        LuaValue block = new BlockLib(event.getBlock(), event.getInstance(), event.getBlockPosition());
         LuaValue blockPosition = new BlockVecLib(event.getBlockPosition());
 
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {

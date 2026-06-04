@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.example.sandbox.entities.PlayerLib;
-import org.example.sandbox.world.InstanceContainerLib;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -13,32 +12,25 @@ import org.luaj.vm2.lib.OneArgFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
-import net.minestom.server.instance.InstanceContainer;
+import net.minestom.server.event.player.PlayerSpawnEvent;
 
-public class OnAsyncPlayerConfiguration {
-    private static final Logger logger = LoggerFactory.getLogger("LuaCraft AsyncPlayerConfigurationEvent");
+public class OnPlayerSpawn {
+    private static final Logger logger = LoggerFactory.getLogger("LuaCraft PlayerSpawnEvent");
 
-    public static void handle(AsyncPlayerConfigurationEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+    public static void handle(PlayerSpawnEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+        LuaValue player = new PlayerLib(event.getPlayer());
+
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
-            LuaValue player = new PlayerLib(event.getPlayer());
 
             LuaValue serverEvent = entry.getValue().get("ServerEvent");
-            LuaValue function = serverEvent.get("OnAsyncPlayerConfiguration");
+            LuaValue function = serverEvent.get("OnPlayerSpawn");
 
             LuaTable luaEventTable = new LuaTable();
-
             luaEventTable.set("Player", player);
-            luaEventTable.set("SetSpawningInstance", new OneArgFunction() {
+            luaEventTable.set("IsFirstSpawn", new OneArgFunction() {
                 @Override
-                public LuaValue call(LuaValue instance) {
-                    if (instance instanceof InstanceContainerLib) {
-                        InstanceContainer container = ((InstanceContainerLib) instance).getContainer();
-
-                        event.setSpawningInstance(container);
-                    }
-
-                    return LuaValue.NIL;
+                public LuaValue call(LuaValue self) {
+                    return LuaValue.valueOf(event.isFirstSpawn());
                 }
             });
 

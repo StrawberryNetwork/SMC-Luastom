@@ -8,7 +8,11 @@ import net.minestom.server.inventory.AbstractInventory;
 import net.minestom.server.item.ItemStack;
 
 public class AbstractInventoryLib extends LuaTable {
+    private AbstractInventory inventory;
+
     public AbstractInventoryLib(AbstractInventory inventory) {
+        this.inventory = inventory;
+
         rawset("AddItemStack", new TwoArgFunction() {
             @Override
             public LuaValue call(LuaValue self, LuaValue item) {
@@ -19,5 +23,9 @@ public class AbstractInventoryLib extends LuaTable {
                 return AbstractInventoryLib.this;
             }
         });
+    }
+
+    public AbstractInventory getInventory() {
+        return inventory;
     }
 }
