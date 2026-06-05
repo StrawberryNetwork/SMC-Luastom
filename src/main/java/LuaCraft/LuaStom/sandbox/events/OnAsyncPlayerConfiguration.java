@@ -8,6 +8,7 @@ import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.TwoArgFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,9 @@ public class OnAsyncPlayerConfiguration {
             LuaTable luaEventTable = new LuaTable();
 
             luaEventTable.set("Player", player);
-            luaEventTable.set("SetSpawningInstance", new OneArgFunction() {
+            luaEventTable.set("SetSpawningInstance", new TwoArgFunction() {
                 @Override
-                public LuaValue call(LuaValue instance) {
+                public LuaValue call(LuaValue self, LuaValue instance) {
                     if (instance instanceof InstanceContainerLib) {
                         InstanceContainer container = ((InstanceContainerLib) instance).getContainer();
 

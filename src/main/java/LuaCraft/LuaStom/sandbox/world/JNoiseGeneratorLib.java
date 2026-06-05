@@ -22,17 +22,17 @@ public class JNoiseGeneratorLib extends LuaTable {
                     case 2 -> LuaValue.valueOf(
                             noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 1)));
                     case 3 -> LuaValue
-                            .valueOf(noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(1), "JNoise.Evaluate", 1),
-                                    LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 2)));
+                            .valueOf(noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 1),
+                                    LuaErrorAssert.checkDouble(args.arg(3), "JNoise.Evaluate", 2)));
                     case 4 -> LuaValue
-                            .valueOf(noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(1), "JNoise.Evaluate", 1),
-                                    LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 2),
-                                    LuaErrorAssert.checkDouble(args.arg(3), "JNoise.Evaluate", 3)));
+                            .valueOf(noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 1),
+                                    LuaErrorAssert.checkDouble(args.arg(3), "JNoise.Evaluate", 2),
+                                    LuaErrorAssert.checkDouble(args.arg(4), "JNoise.Evaluate", 3)));
                     case 5 -> LuaValue
-                            .valueOf(noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(1), "JNoise.Evaluate", 1),
-                                    LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 2),
-                                    LuaErrorAssert.checkDouble(args.arg(3), "JNoise.Evaluate", 3),
-                                    LuaErrorAssert.checkDouble(args.arg(4), "JNoise.Evaluate", 4)));
+                            .valueOf(noise.evaluateNoise(LuaErrorAssert.checkDouble(args.arg(2), "JNoise.Evaluate", 1),
+                                    LuaErrorAssert.checkDouble(args.arg(3), "JNoise.Evaluate", 2),
+                                    LuaErrorAssert.checkDouble(args.arg(4), "JNoise.Evaluate", 3),
+                                    LuaErrorAssert.checkDouble(args.arg(5), "JNoise.Evaluate", 4)));
                     default -> LuaValue.NIL;
                 };
             }

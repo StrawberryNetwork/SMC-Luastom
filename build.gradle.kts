@@ -3,7 +3,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.0"
 }
 
-group = "org.example"
+group = "LuaCraft.LuaStom"
 
 repositories {
     mavenCentral()
@@ -25,7 +25,7 @@ java {
 tasks {
     jar {
         manifest {
-            attributes["Main-Class"] = "org.example.Main"
+            attributes["Main-Class"] = "LuaCraft.LuaStom.Main"
         }
     }
 

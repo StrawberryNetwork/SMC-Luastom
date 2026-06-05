@@ -1,5 +1,5 @@
 <configuration>
-    <conversionRule conversionWord="betterHighlight" converterClass="org.example.LoggerColors"/>
+    <conversionRule conversionWord="betterHighlight" converterClass="LuaCraft.LuaStom.LoggerColors"/>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%betterHighlight([%d{HH:mm:ss}] [%logger]) %msg%n</pattern>

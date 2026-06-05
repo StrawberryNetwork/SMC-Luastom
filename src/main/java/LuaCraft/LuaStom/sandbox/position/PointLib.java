@@ -5,6 +5,7 @@ import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.TwoArgFunction;
 import org.luaj.vm2.lib.VarArgFunction;
 
 import LuaCraft.LuaStom.LuaErrorAssert;
@@ -44,17 +45,23 @@ public class PointLib extends LuaTable {
                 if (!(args.arg(2) instanceof PointLib) && args.narg() < 4) throw new LuaError("Point.Add requires either a Point or 3 numbers");
 
                 if (args.arg(2) instanceof PointLib otherPoint) {
-                    point.add(((PointLib) otherPoint).getPoint());
-
-                    return PointLib.this;
+                    return new PointLib(point.add(((PointLib) otherPoint).getPoint()));
                 } else {
                     Double x = LuaErrorAssert.checkDouble(args.arg(2), "Point.Add", 1);
                     Double y = LuaErrorAssert.checkDouble(args.arg(3), "Point.Add", 2);
                     Double z = LuaErrorAssert.checkDouble(args.arg(4), "Point.Add", 3);
-                    point.add(x, y, z);
-
-                    return PointLib.this;
+                    
+                    return new PointLib(point.add(x, y, z));
                 }
+            }
+        });
+
+        rawset("WithY", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue yVal) {
+                Double y = LuaErrorAssert.checkDouble(yVal, "Point.WithY", 1);
+
+                return new PointLib(point.withY(y));
             }
         });
 

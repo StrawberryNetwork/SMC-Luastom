@@ -26,6 +26,7 @@ import LuaCraft.LuaStom.sandbox.position.PointLib;
 import LuaCraft.LuaStom.sandbox.position.PositionLib;
 import LuaCraft.LuaStom.sandbox.thread.NextTick;
 import LuaCraft.LuaStom.sandbox.thread.RunSync;
+import LuaCraft.LuaStom.sandbox.thread.RunSyncWithLock;
 import LuaCraft.LuaStom.sandbox.world.FastSimplexBuilderLib;
 import LuaCraft.LuaStom.sandbox.world.World;
 
@@ -93,6 +94,7 @@ public class ScriptHandler {
         // Add thread related functions
         globals.set("NextTick", new NextTick());
         globals.set("Sync", new RunSync());
+        globals.set("SyncWithLock", new RunSyncWithLock());
 
         // Force them to stick within the scripts folder for requiring for safety
         // reasons
