@@ -13,6 +13,7 @@ import LuaCraft.LuaStom.sandbox.inventory.PlayerInventoryLib;
 import LuaCraft.LuaStom.sandbox.position.PositionLib;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.tag.Tag;
 
@@ -113,6 +114,15 @@ public class PlayerLib extends LivingEntityLib {
             @Override
             public LuaValue call(LuaValue self) {
                 return LuaValue.valueOf(player.getUuid().toString());
+            }
+        });
+
+        rawset("SetGamemode", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue gm) {
+                player.setGameMode(GameMode.valueOf(LuaErrorAssert.checkString(gm, "Player:SetGamemode", 1).toUpperCase()));
+
+                return PlayerLib.this;
             }
         });
     }

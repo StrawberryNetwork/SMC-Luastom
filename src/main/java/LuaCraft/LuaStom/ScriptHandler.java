@@ -24,9 +24,11 @@ import LuaCraft.LuaStom.sandbox.events.ServerEvent;
 import LuaCraft.LuaStom.sandbox.inventory.ItemStackLib;
 import LuaCraft.LuaStom.sandbox.position.PointLib;
 import LuaCraft.LuaStom.sandbox.position.PositionLib;
+import LuaCraft.LuaStom.sandbox.server.ServerLib;
 import LuaCraft.LuaStom.sandbox.thread.NextTick;
 import LuaCraft.LuaStom.sandbox.thread.RunSync;
 import LuaCraft.LuaStom.sandbox.thread.RunSyncWithLock;
+import LuaCraft.LuaStom.sandbox.thread.Timer;
 import LuaCraft.LuaStom.sandbox.world.FastSimplexBuilderLib;
 import LuaCraft.LuaStom.sandbox.world.World;
 
@@ -90,6 +92,8 @@ public class ScriptHandler {
         globals.set("Component", new LuaComponent());
         globals.set("FastSimplex", FastSimplexBuilderLib.creator());
         globals.set("Point", PointLib.creator());
+        globals.set("Server", new ServerLib());
+        globals.set("Timer", new Timer());
 
         // Add thread related functions
         globals.set("NextTick", new NextTick());

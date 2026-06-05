@@ -55,7 +55,6 @@ public class DefaultInventoryHandlerLib {
                     JsonObject item = element.getAsJsonObject();
                     String nbt = item.get("nbt").getAsString();
                     int slot = item.get("slot").getAsInt();
-                    System.out.println(slot);
                     CompoundBinaryTag NBT = MinestomAdventure.tagStringIO().asCompound(nbt);
                     ItemStack itemStack = ItemStack.fromItemNBT(NBT);
                     
