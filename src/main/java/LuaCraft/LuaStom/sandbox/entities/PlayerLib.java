@@ -125,5 +125,21 @@ public class PlayerLib extends LivingEntityLib {
                 return PlayerLib.this;
             }
         });
+
+        rawset("GetGamemode", new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self) {
+                return LuaValue.valueOf(player.getGameMode().toString());
+            }
+        });
+
+        rawset("SetFlySpeed", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue speed) {
+                player.setFlyingSpeed(LuaErrorAssert.checkFloat(speed, "Player:SetFlySpeed", 1));
+
+                return PlayerLib.this;
+            }
+        });
     }
 }

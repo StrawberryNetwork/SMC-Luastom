@@ -1,8 +1,10 @@
 package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.NonNull;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -16,23 +18,27 @@ import net.minestom.server.event.item.PickupItemEvent;
 
 public class OnPickupItem {
     private static final Logger logger = LoggerFactory.getLogger("LuaCraft PickupItemEvent");
+    private static final ThreadLocal<@NonNull LuaTable> luaEventTable = ThreadLocal.withInitial(LuaTable::new);
+    private static final ThreadLocal<PickupItemEvent> currentEvent = new ThreadLocal<>();
 
     public static void handle(PickupItemEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+        currentEvent.set(event);
+
         LuaValue livingEntity = new LivingEntityLib(event.getLivingEntity());
-            LuaValue itemEntity = new ItemLib(event.getItemEntity());
+        LuaValue itemEntity = new ItemLib(event.getItemEntity());
+
+        LuaTable eventTable = Objects.requireNonNull(luaEventTable.get());
 
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
             LuaValue serverEvent = entry.getValue().get("ServerEvent");
                 LuaValue function = serverEvent.get("OnPickupItem");
 
-                LuaTable luaEventTable = new LuaTable();
-
-                luaEventTable.set("LivingEntity", livingEntity);
-                luaEventTable.set("ItemEntity", itemEntity);
+                eventTable.set("LivingEntity", livingEntity);
+                eventTable.set("ItemEntity", itemEntity);
 
                 if (!function.isnil() && function.isfunction()) {
                     try {
-                        function.call(luaEventTable, livingEntity, itemEntity);
+                        function.invoke(LuaValue.varargsOf(new LuaValue[]{serverEvent, eventTable, livingEntity, itemEntity}));
                     } catch (LuaError e) {
                         String baseMsg = e.getMessage();
                         String trueLocation = "";

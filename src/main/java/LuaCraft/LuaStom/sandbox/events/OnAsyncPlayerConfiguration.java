@@ -1,8 +1,10 @@
 package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.NonNull;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -14,37 +16,40 @@ import org.slf4j.LoggerFactory;
 import LuaCraft.LuaStom.sandbox.entities.PlayerLib;
 import LuaCraft.LuaStom.sandbox.world.InstanceContainerLib;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
-import net.minestom.server.instance.InstanceContainer;
 
 public class OnAsyncPlayerConfiguration {
     private static final Logger logger = LoggerFactory.getLogger("LuaCraft AsyncPlayerConfigurationEvent");
+    private static final ThreadLocal<@NonNull LuaTable> luaEventTable = ThreadLocal.withInitial(LuaTable::new);
+    private static final ThreadLocal<AsyncPlayerConfigurationEvent> currentEvent = new ThreadLocal<>();
+
+    private static final TwoArgFunction setSpawningInstance = new TwoArgFunction() {
+        @Override
+        public LuaValue call(LuaValue self, LuaValue instance) {
+            AsyncPlayerConfigurationEvent event = currentEvent.get();
+            if (instance instanceof InstanceContainerLib) {
+                event.setSpawningInstance(((InstanceContainerLib) instance).getContainer());
+            }
+            return LuaValue.NIL;
+        }
+    };
 
     public static void handle(AsyncPlayerConfigurationEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+        currentEvent.set(event);
+
+        LuaValue player = new PlayerLib(event.getPlayer());
+
+        LuaTable eventTable = Objects.requireNonNull(luaEventTable.get());
+        eventTable.set("Player", player);
+        eventTable.set("SetSpawningInstance", setSpawningInstance);
+
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
-            LuaValue player = new PlayerLib(event.getPlayer());
 
             LuaValue serverEvent = entry.getValue().get("ServerEvent");
             LuaValue function = serverEvent.get("OnAsyncPlayerConfiguration");
 
-            LuaTable luaEventTable = new LuaTable();
-
-            luaEventTable.set("Player", player);
-            luaEventTable.set("SetSpawningInstance", new TwoArgFunction() {
-                @Override
-                public LuaValue call(LuaValue self, LuaValue instance) {
-                    if (instance instanceof InstanceContainerLib) {
-                        InstanceContainer container = ((InstanceContainerLib) instance).getContainer();
-
-                        event.setSpawningInstance(container);
-                    }
-
-                    return LuaValue.NIL;
-                }
-            });
-
             if (!function.isnil() && function.isfunction()) {
                 try {
-                    function.call(luaEventTable, player);
+                    function.call(serverEvent, eventTable, player);
                 } catch (LuaError e) {
                     String baseMsg = e.getMessage();
                     String trueLocation = "";
@@ -69,5 +74,6 @@ public class OnAsyncPlayerConfiguration {
                 }
             }
         }
+        currentEvent.remove();
     }
 }

@@ -1,8 +1,10 @@
 package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.NonNull;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -18,32 +20,41 @@ import net.minestom.server.event.player.PlayerChatEvent;
 
 public class OnPlayerChat {
     private static final Logger logger = LoggerFactory.getLogger("LuaCraft AsyncPlayerConfigurationEvent");
+    private static final ThreadLocal<@NonNull LuaTable> luaEventTable = ThreadLocal.withInitial(LuaTable::new);
+    private static final ThreadLocal<PlayerChatEvent> currentEvent = new ThreadLocal<>();
+
+    private static final TwoArgFunction setChatFormatting = new TwoArgFunction() {
+        @Override
+        public LuaValue call(LuaValue self, LuaValue message) {
+            PlayerChatEvent event = currentEvent.get();
+
+            event.setFormattedMessage(ComponentUtil.luaValueToComponent(message));
+
+            return LuaValue.NIL;
+        }
+    };
 
     public static void handle(PlayerChatEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+        currentEvent.set(event);
+
         LuaValue player = new PlayerLib(event.getPlayer());
         LuaValue rawMessage = LuaValue.valueOf(event.getRawMessage());
         LuaValue formattedMessage = new ComponentLib(event.getFormattedMessage());
+
+        LuaTable eventTable = Objects.requireNonNull(luaEventTable.get());
 
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
             LuaValue serverEvent = entry.getValue().get("ServerEvent");
             LuaValue function = serverEvent.get("OnPlayerChat");
 
-            LuaTable luaEventTable = new LuaTable();
-            luaEventTable.set("Player", player);
-            luaEventTable.set("RawMessage", rawMessage);
-            luaEventTable.set("FormattedMessage", formattedMessage);
-            luaEventTable.set("SetChatFormat", new TwoArgFunction() {
-                @Override
-                public LuaValue call(LuaValue self, LuaValue message) {
-                    event.setFormattedMessage(ComponentUtil.luaValueToComponent(message));
-
-                    return LuaValue.NIL;
-                }
-            });
+            eventTable.set("Player", player);
+            eventTable.set("RawMessage", rawMessage);
+            eventTable.set("FormattedMessage", formattedMessage);
+            eventTable.set("SetChatFormat", setChatFormatting);
 
             if (!function.isnil() && function.isfunction()) {
                 try {
-                    function.invoke(LuaValue.varargsOf(new LuaValue[]{luaEventTable, player, rawMessage, formattedMessage}));
+                    function.invoke(LuaValue.varargsOf(new LuaValue[]{serverEvent, eventTable, player, rawMessage, formattedMessage}));
                 } catch (LuaError e) {
                     String baseMsg = e.getMessage();
                     String trueLocation = "";

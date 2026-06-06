@@ -1,8 +1,10 @@
 package LuaCraft.LuaStom.sandbox.events;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.NonNull;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
@@ -16,27 +18,36 @@ import net.minestom.server.event.player.PlayerSpawnEvent;
 
 public class OnPlayerSpawn {
     private static final Logger logger = LoggerFactory.getLogger("LuaCraft PlayerSpawnEvent");
+    private static final ThreadLocal<@NonNull LuaTable> luaEventTable = ThreadLocal.withInitial(LuaTable::new);
+    private static final ThreadLocal<PlayerSpawnEvent> currentEvent = new ThreadLocal<>();
+
+    private static final OneArgFunction isFirstSpawn = new OneArgFunction() {
+        @Override
+        public LuaValue call(LuaValue self) {
+            PlayerSpawnEvent event = currentEvent.get();
+
+            return LuaValue.valueOf(event.isFirstSpawn());
+        }
+    };
 
     public static void handle(PlayerSpawnEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+        currentEvent.set(event);
+
         LuaValue player = new PlayerLib(event.getPlayer());
+
+        LuaTable eventTable = Objects.requireNonNull(luaEventTable.get());
 
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
 
             LuaValue serverEvent = entry.getValue().get("ServerEvent");
             LuaValue function = serverEvent.get("OnPlayerSpawn");
 
-            LuaTable luaEventTable = new LuaTable();
-            luaEventTable.set("Player", player);
-            luaEventTable.set("IsFirstSpawn", new OneArgFunction() {
-                @Override
-                public LuaValue call(LuaValue self) {
-                    return LuaValue.valueOf(event.isFirstSpawn());
-                }
-            });
+            eventTable.set("Player", player);
+            eventTable.set("IsFirstSpawn", isFirstSpawn);
 
             if (!function.isnil() && function.isfunction()) {
                 try {
-                    function.call(luaEventTable, player);
+                    function.call(serverEvent, eventTable, player);
                 } catch (LuaError e) {
                     String baseMsg = e.getMessage();
                     String trueLocation = "";
