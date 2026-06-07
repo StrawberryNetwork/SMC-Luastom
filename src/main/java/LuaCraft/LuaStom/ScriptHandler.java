@@ -29,6 +29,7 @@ import LuaCraft.LuaStom.sandbox.thread.NextTick;
 import LuaCraft.LuaStom.sandbox.thread.RunSync;
 import LuaCraft.LuaStom.sandbox.thread.RunSyncWithLock;
 import LuaCraft.LuaStom.sandbox.thread.Timer;
+import LuaCraft.LuaStom.sandbox.world.BiomeBuilderLib;
 import LuaCraft.LuaStom.sandbox.world.FastSimplexBuilderLib;
 import LuaCraft.LuaStom.sandbox.world.World;
 
@@ -99,6 +100,7 @@ public class ScriptHandler {
         globals.set("NextTick", new NextTick());
         globals.set("Sync", new RunSync());
         globals.set("SyncWithLock", new RunSyncWithLock());
+        globals.set("Biome", BiomeBuilderLib.creator());
 
         // Force them to stick within the scripts folder for requiring for safety
         // reasons

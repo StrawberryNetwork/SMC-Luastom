@@ -12,34 +12,31 @@ import org.luaj.vm2.LuaValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import LuaCraft.LuaStom.sandbox.entities.ItemLib;
-import LuaCraft.LuaStom.sandbox.entities.LivingEntityLib;
-import net.minestom.server.event.item.PickupItemEvent;
+import LuaCraft.LuaStom.sandbox.world.ChunkLib;
+import net.minestom.server.event.instance.InstanceChunkLoadEvent;
 
-public class OnPickupItem {
-    private static final Logger logger = LoggerFactory.getLogger("LuaCraft PickupItemEvent");
+public class OnChunkLoad {
+    private static final Logger logger = LoggerFactory.getLogger("LuaCraft ChunkLoadEvent");
+
     private static final ThreadLocal<@NonNull LuaTable> luaEventTable = ThreadLocal.withInitial(LuaTable::new);
-    private static final ThreadLocal<PickupItemEvent> currentEvent = new ThreadLocal<>();
+    private static final ThreadLocal<InstanceChunkLoadEvent> currentEvent = new ThreadLocal<>();
 
-    public static void handle(PickupItemEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
+    public static void handle(InstanceChunkLoadEvent event, ConcurrentHashMap<String, Globals> allGlobals) {
         currentEvent.set(event);
 
-        LuaValue livingEntity = new LivingEntityLib(event.getLivingEntity());
-        LuaValue itemEntity = new ItemLib(event.getItemEntity());
-
-        LuaTable eventTable = Objects.requireNonNull(luaEventTable.get());
+        LuaValue chunk = new ChunkLib(event.getChunk());
 
         for (Map.Entry<String, Globals> entry : allGlobals.entrySet()) {
-            LuaValue serverEvent = entry.getValue().get("ServerEvent");
-            LuaValue function = serverEvent.get("OnPickupItem");
 
-            eventTable.set("LivingEntity", livingEntity);
-            eventTable.set("ItemEntity", itemEntity);
+            LuaValue serverEvent = entry.getValue().get("ServerEvent");
+            LuaValue function = serverEvent.get("OnChunkLoad");
+
+            LuaTable eventTable = Objects.requireNonNull(luaEventTable.get());
+            eventTable.set("Chunk", chunk);
 
             if (!function.isnil() && function.isfunction()) {
                 try {
-                    function.invoke(
-                            LuaValue.varargsOf(new LuaValue[] { serverEvent, eventTable, livingEntity, itemEntity }));
+                    function.call(serverEvent, eventTable, chunk);
                 } catch (LuaError e) {
                     String baseMsg = e.getMessage();
                     String trueLocation = "";

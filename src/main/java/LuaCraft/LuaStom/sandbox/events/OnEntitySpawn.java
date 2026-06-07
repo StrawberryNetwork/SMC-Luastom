@@ -61,5 +61,6 @@ public class OnEntitySpawn {
                 }
             }
         }
+        currentEvent.remove();
     }
 }

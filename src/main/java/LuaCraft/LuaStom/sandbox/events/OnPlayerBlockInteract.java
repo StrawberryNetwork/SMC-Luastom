@@ -17,7 +17,7 @@ import LuaCraft.LuaStom.sandbox.world.BlockLib;
 import net.minestom.server.event.player.PlayerBlockInteractEvent;
 
 public class OnPlayerBlockInteract {
-    private static final Logger logger = LoggerFactory.getLogger("LuaCraft EntitySpawnEvent");
+    private static final Logger logger = LoggerFactory.getLogger("LuaCraft PlayerInteractBlockEvent");
     private static final ThreadLocal<@NonNull LuaTable> luaEventTable = ThreadLocal.withInitial(LuaTable::new);
     private static final ThreadLocal<PlayerBlockInteractEvent> currentEvent = new ThreadLocal<>();
 
@@ -63,5 +63,6 @@ public class OnPlayerBlockInteract {
                 }
             }
         }
+        currentEvent.remove();
     }
 }

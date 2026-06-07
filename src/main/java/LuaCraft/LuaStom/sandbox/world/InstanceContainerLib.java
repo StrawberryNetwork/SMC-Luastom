@@ -6,6 +6,7 @@ import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.ThreeArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
 import LuaCraft.LuaStom.LuaErrorAssert;
@@ -94,6 +95,13 @@ public class InstanceContainerLib extends LuaTable {
                 }
 
                 return chunks;
+            }
+        });
+
+        rawset("GetChunkAt", new ThreeArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue x, LuaValue z) {
+                return new ChunkLib(container.getChunkAt(LuaErrorAssert.checkDouble(x, "Instance:GetChunkAt", 1), LuaErrorAssert.checkDouble(z, "Instance:GetChunkAt", 2)));
             }
         });
     }

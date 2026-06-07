@@ -9,6 +9,7 @@ import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.entity.EntitySpawnEvent;
+import net.minestom.server.event.instance.InstanceChunkLoadEvent;
 import net.minestom.server.event.item.PickupItemEvent;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
@@ -17,6 +18,7 @@ import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.event.trait.BlockEvent;
 import net.minestom.server.event.trait.EntityEvent;
+import net.minestom.server.event.trait.InstanceEvent;
 import net.minestom.server.event.trait.InventoryEvent;
 import net.minestom.server.event.trait.ItemEvent;
 import net.minestom.server.event.trait.PlayerEvent;
@@ -28,6 +30,7 @@ public class EventHandler {
     private EventNode<InventoryEvent> inventoryNode = EventNode.type("luacraft_inventoryNode", EventFilter.INVENTORY);
     private EventNode<ItemEvent> itemNode = EventNode.type("luacraft_itemNode", EventFilter.ITEM);
     private EventNode<BlockEvent> blockNode = EventNode.type("luacraft_blockNode", EventFilter.BLOCK);
+    private EventNode<InstanceEvent> instanceNode = EventNode.type("luacraft_instanceNode", EventFilter.INSTANCE);
 
     public void initNodes() {
         GlobalEventHandler handler = MinecraftServer.getGlobalEventHandler();
@@ -37,6 +40,7 @@ public class EventHandler {
         handler.addChild(inventoryNode);
         handler.addChild(itemNode);
         handler.addChild(blockNode);
+        handler.addChild(instanceNode);
     }
 
     public void initListeners(ConcurrentHashMap<String, Globals> allGlobals) {
@@ -63,6 +67,10 @@ public class EventHandler {
         });
         entityNode.addListener(EntitySpawnEvent.class, event -> {
             OnEntitySpawn.handle(event, allGlobals);
+        });
+
+        instanceNode.addListener(InstanceChunkLoadEvent.class, event -> {
+            OnChunkLoad.handle(event, allGlobals);
         });
     }
 }
