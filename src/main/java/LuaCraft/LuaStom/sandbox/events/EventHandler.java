@@ -14,6 +14,7 @@ import net.minestom.server.event.item.PickupItemEvent;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
 import net.minestom.server.event.player.PlayerBlockInteractEvent;
+import net.minestom.server.event.player.PlayerBlockPlaceEvent;
 import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import net.minestom.server.event.trait.BlockEvent;
@@ -59,6 +60,9 @@ public class EventHandler {
         });
         playerNode.addListener(PlayerBlockInteractEvent.class, event -> {
             OnPlayerBlockInteract.handle(event, allGlobals);
+        });
+        playerNode.addListener(PlayerBlockPlaceEvent.class, event -> {
+            OnPlayerBlockPlace.handle(event, allGlobals);
         });
 
         // Entity Listeners

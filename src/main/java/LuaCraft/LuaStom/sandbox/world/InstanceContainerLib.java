@@ -10,11 +10,15 @@ import org.luaj.vm2.lib.ThreeArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
 import LuaCraft.LuaStom.LuaErrorAssert;
+import LuaCraft.LuaStom.sandbox.position.PointLib;
+import LuaCraft.LuaStom.sandbox.position.PositionLib;
+import net.minestom.server.coordinate.Point;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.DynamicChunk;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.anvil.AnvilLoader;
+import net.minestom.server.instance.block.Block;
 
 public class InstanceContainerLib extends LuaTable {
     private InstanceContainer instanceContainer;
@@ -114,6 +118,26 @@ public class InstanceContainerLib extends LuaTable {
                 );
 
                 return InstanceContainerLib.this;
+            }
+        });
+
+        rawset("GetBlock", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue pos) {
+                Point position = ((PointLib) pos).getPoint();
+                Block block = instanceContainer.getBlock(position);
+                return new BlockLib(block, instanceContainer, position);
+            }
+        });
+
+        rawset("SetBlock", new ThreeArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue pos, LuaValue block) {
+                Block newBlock = ((BlockLib) block).getBlock();
+
+                instanceContainer.setBlock(((PointLib) pos).getPoint(), newBlock);
+
+                return LuaValue.NIL;
             }
         });
     }
