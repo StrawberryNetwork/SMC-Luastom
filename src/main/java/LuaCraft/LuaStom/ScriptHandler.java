@@ -81,6 +81,7 @@ public class ScriptHandler {
 
         // Add Enums into the global scope
         globals.set("Items", Enumerations.ItemEnums());
+        globals.set("Blocks", Enumerations.BlockEnums());
         globals.set("LogLevel", Enumerations.LogEnums());
 
         // Add libraries into the default scope that do not need another object to be

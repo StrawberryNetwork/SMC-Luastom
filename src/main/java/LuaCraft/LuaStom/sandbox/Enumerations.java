@@ -3,6 +3,7 @@ package LuaCraft.LuaStom.sandbox;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 
+import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.Material;
 
 public class Enumerations {
@@ -22,6 +23,16 @@ public class Enumerations {
         tbl.set("INFO", LuaValue.valueOf("Info"));
         tbl.set("WARN", LuaValue.valueOf("Warn"));
         tbl.set("ERROR", LuaValue.valueOf("Error"));
+
+        return tbl;
+    }
+    public static LuaTable BlockEnums() {
+        LuaTable tbl = new LuaTable();
+
+        for (Block block : Block.values()) {
+            String blockName = block.name().toString().replace("minecraft:", "").toUpperCase();
+            tbl.set(blockName, LuaValue.valueOf(block.name()));
+        }
 
         return tbl;
     }
