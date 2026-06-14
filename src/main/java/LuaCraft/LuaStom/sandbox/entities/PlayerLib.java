@@ -157,6 +157,20 @@ public class PlayerLib extends LivingEntityLib {
                 return LuaValue.valueOf(exp);
             }
         });
+        rawset("SetLevel", new TwoArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self, LuaValue exp) {
+                player.setLevel(LuaErrorAssert.checkInt(exp, "Player:SetLevel", 1));
+                return PlayerLib.this;
+            } 
+        });
+        rawset("GetLevel", new OneArgFunction() {
+            @Override
+            public LuaValue call(LuaValue self) {
+                var level = player.getLevel();
+                return LuaValue.valueOf(level);
+            }
+        });
         rawset("SwingMainHand", new TwoArgFunction() {
             @Override
             public LuaValue call(LuaValue self, LuaValue othersOnly) {
