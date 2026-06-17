@@ -14,7 +14,7 @@ public class RunSync extends TwoArgFunction {
     @Override
     public LuaValue call(LuaValue self, LuaValue function) {
         synchronized (LuaLock) {
-            LuaErrorAssert.checkFunction(function, "NextTick", 1).call();
+            LuaErrorAssert.checkFunction(function, "Sync", 1).call();
         }
 
         return LuaValue.NIL;

@@ -15,7 +15,11 @@ import net.minestom.server.entity.Entity;
 import net.minestom.server.instance.InstanceContainer;
 
 public class EntityLib extends LuaTable {
+    private Entity entity;
+
     public EntityLib(Entity entity) {
+        this.entity = entity;
+
         rawset("SetInstance", new ThreeArgFunction() {
             @Override
             public LuaValue call(LuaValue self, LuaValue inst, LuaValue pos) {
@@ -78,5 +82,9 @@ public class EntityLib extends LuaTable {
                 }
             }
         });
+    }
+
+    public Entity getEntity() {
+        return entity;
     }
 }

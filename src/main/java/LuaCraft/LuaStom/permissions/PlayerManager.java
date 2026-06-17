@@ -3,7 +3,7 @@ package LuaCraft.LuaStom.permissions;
 import java.util.ArrayList;
 import java.util.List;
 
-import LuaCraft.LuaStom.permissions.PermissionManager.GroupData;
+import LuaCraft.LuaStom.permissions.GroupManager.GroupData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -14,12 +14,12 @@ import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.tag.Tag;
 
 public class PlayerManager extends Player {
-    private PermissionManager manager;
+    private GroupManager manager;
 
     public static final Tag<List<String>> GROUP = Tag.String("luacraft_groups").list().defaultValue(List.of());
     public static final Tag<List<String>> PERMISSIONS = Tag.String("luacraft_permissions").list().defaultValue(List.of());
 
-    public PlayerManager(PlayerConnection playerConnection, GameProfile gameProfile, PermissionManager manager) {
+    public PlayerManager(PlayerConnection playerConnection, GameProfile gameProfile, GroupManager manager) {
         super(playerConnection, gameProfile);
 
         this.manager = manager;
