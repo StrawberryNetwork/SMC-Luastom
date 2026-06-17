@@ -16,6 +16,7 @@ import org.luaj.vm2.lib.jse.JsePlatform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import LuaCraft.LuaStom.globals.GlobalFunctions;
 import LuaCraft.LuaStom.sandbox.Enumerations;
 import LuaCraft.LuaStom.sandbox.LuaLogger;
 import LuaCraft.LuaStom.sandbox.component.LuaComponent;
@@ -79,6 +80,9 @@ public class ScriptHandler {
         loaded.set("io", LuaValue.NIL);
         loaded.set("debug", LuaValue.NIL);
         loaded.set("luajava", LuaValue.NIL);
+
+        // Add Global Functions
+        globals.set("FindMetaTable", GlobalFunctions.findMetaTable());
 
         // Add Enums into the global scope
         globals.set("Items", Enumerations.ItemEnums());
